@@ -1,14 +1,22 @@
-import { Route } from "react-router-dom";
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from "react-router-dom";
 import AllCountries from "./AllCountries";
 
 function App() {
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route>
+        <Route index element={<AllCountries />}></Route>
+      </Route>
+    )
+  );
   return (
     <>
-      const router = createBrowserRouter( createRoutesFromElements(
-      <Route>
-        <Route path="/countries" element={<AllCountries />}></Route>
-      </Route>
-      ) )
+      <RouterProvider router={router} />
     </>
   );
 }

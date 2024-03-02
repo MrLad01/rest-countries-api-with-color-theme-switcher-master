@@ -4,13 +4,13 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import AllCountries from "./AllCountries";
+import MainPage from "./MainPage";
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
-        <Route index element={<AllCountries />}></Route>
+        <Route index element={<MainPage />}></Route>
       </Route>
     )
   );

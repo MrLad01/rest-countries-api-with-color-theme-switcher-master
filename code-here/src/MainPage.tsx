@@ -8,7 +8,7 @@ const MainPage: React.FC = () => {
   return (
     <>
       <NavBar light={light} setLight={setLight} />
-      <AllCountries />
+      <AllCountries light={light} />
     </>
   );
 };

@@ -1,0 +1,9 @@
+.all-search-filter {
+  padding-top: 28px;
+  padding-bottom: 28px;
+}
+.country-flags {
+  object-fit: cover;
+  height: 160px;
+  width: 100%;
+}

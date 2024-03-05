@@ -31,7 +31,7 @@ const AllCountries: React.FC<props> = ({ light }) => {
         className={`all-countries-container ${
           light ? "light-theme" : "dark-theme"
         }`}
-        data-bs-theme={light ? "light" : "dark"}
+        // data-bs-theme={light ? "light" : "dark"}
         style={{
           color: `${light ? "#000" : "#fff"}`,
         }}
@@ -51,7 +51,12 @@ const AllCountries: React.FC<props> = ({ light }) => {
                 <Button variant="outline-success">Search</Button>
               </Form>
               <Dropdown>
-                <Dropdown.Toggle id="dropdown-basic">
+                <Dropdown.Toggle
+                  id="dropdown-basic"
+                  className={` ${
+                    light ? "light-theme" : "dark-theme"
+                  } filter-dropdown`}
+                >
                   Filter by region
                 </Dropdown.Toggle>
 

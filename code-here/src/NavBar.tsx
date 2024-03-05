@@ -10,8 +10,9 @@ const NavBar: React.FC<Navprops> = ({ light, setLight }) => {
   return (
     <Navbar
       sticky="top"
-      bg={light ? "light" : "dark"}
-      variant={light ? "light" : "dark"}
+      // bg={light ? "light" : "dark"}
+      // variant={light ? "light" : "dark"}
+      className={` ${light ? "light-theme" : "dark-theme"} navbar`}
     >
       <Container className="d-flex justify-content-between">
         <Navbar.Brand>Where in the world?</Navbar.Brand>

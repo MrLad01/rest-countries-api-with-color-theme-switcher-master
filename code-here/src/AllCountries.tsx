@@ -81,18 +81,37 @@ const AllCountries: React.FC<props> = ({ light }) => {
                       className="country-flags"
                     />
                     <Container className="card-description">
-                      <h5> {country.name} </h5>
+                      <h5
+                        className={` ${
+                          light ? "light-theme" : "dark-theme"
+                        } filter-dropdown`}
+                      >
+                        {" "}
+                        {country.name}{" "}
+                      </h5>
                       <div>
-                        <h6>
+                        <h6
+                          className={` ${
+                            light ? "light-theme" : "dark-theme"
+                          } filter-dropdown`}
+                        >
                           {" "}
                           <span>Population:</span>{" "}
                           {numberWithCommas(country.population)}{" "}
                         </h6>
-                        <h6>
+                        <h6
+                          className={` ${
+                            light ? "light-theme" : "dark-theme"
+                          } filter-dropdown`}
+                        >
                           {" "}
                           <span>Region:</span> {country.region}
                         </h6>
-                        <h6>
+                        <h6
+                          className={` ${
+                            light ? "light-theme" : "dark-theme"
+                          } filter-dropdown`}
+                        >
                           {" "}
                           <span>Capital:</span> {country.capital}
                         </h6>

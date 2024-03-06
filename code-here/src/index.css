@@ -1,13 +1,18 @@
 /* Light theme */
 .light-theme {
   --bg-color: #fff; /* Customize background color for light theme */
-  --text-color: #000; /* Customize text color for light theme */
+  --text-color: #1f1e1e; /* Customize text color for light theme */
+}
+/* Dark theme */
+.dark-theme-1 {
+  --text-color: #bbc5d3; /* Customize text color for dark theme */
+  --bg-color: #1f3041; /* Customize background color for dark theme */
 }
 
 /* Dark theme */
 .dark-theme {
-  --bg-color: #343a40; /* Customize background color for dark theme */
-  --text-color: #fff; /* Customize text color for dark theme */
+  --bg-color: #1a2633; /* Customize background color for dark theme */
+  --text-color: #c8d7dd; /* Customize text color for dark theme */
 }
 
 /* Apply theme to elements */
@@ -22,6 +27,7 @@
 .navbar {
   background-color: var(--bg-color);
   color: var(--text-color);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 .all-search-filter {
   padding-top: 28px;
@@ -46,10 +52,14 @@
 .card-description span {
   font-weight: bold;
   color: black;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 .card-description h6 {
   font-weight: 400;
   color: gray;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 .card-col {
   margin-bottom: 60px;

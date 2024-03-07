@@ -20,6 +20,10 @@
   background-color: var(--bg-color);
   color: var(--text-color);
 }
+.each-country-container {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
 .filter-dropdown {
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -71,4 +75,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: var(--bg-color);
   color: var(--text-color);
+}
+.custom-card:hover {
+  scale: 1.05;
+  transition: 0.5s;
 }

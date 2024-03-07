@@ -14,7 +14,7 @@ const MainPage: React.FC = () => {
       {!showSelectedCountry ? (
         <AllCountries light={light} setSelect={setShowSelectedCountry} />
       ) : (
-        <CountryPage />
+        <CountryPage light={light} setSelect={setShowSelectedCountry} />
       )}
     </>
   );

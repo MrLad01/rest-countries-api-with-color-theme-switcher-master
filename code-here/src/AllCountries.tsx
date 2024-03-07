@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import {
   Button,
   Container,
@@ -13,9 +13,10 @@ import data from "../../data.json";
 
 interface props {
   light: boolean;
+  setSelect: React.Dispatch<SetStateAction<boolean>>;
 }
 
-const AllCountries: React.FC<props> = ({ light }) => {
+const AllCountries: React.FC<props> = ({ light, setSelect }) => {
   const [allCountries, setAllCountries] = useState<any[]>([]);
   const numberWithCommas = (number: number) => {
     return number.toLocaleString();
@@ -31,14 +32,11 @@ const AllCountries: React.FC<props> = ({ light }) => {
         className={`all-countries-container ${
           light ? "light-theme" : "dark-theme"
         }`}
-        // data-bs-theme={light ? "light" : "dark"}
         style={{
           color: `${light ? "#000" : "#fff"}`,
         }}
       >
-        <Container
-        // variant={light ? "light" : "dark"}
-        >
+        <Container>
           <Row>
             <Container className="d-flex justify-content-between all-search-filter">
               <Form className="d-flex">
@@ -74,7 +72,14 @@ const AllCountries: React.FC<props> = ({ light }) => {
             {allCountries.map((country) => (
               <>
                 <Col xs={12} sm={6} md={6} lg={4} xl={3} className="card-col">
-                  <Card className="custom-card">
+                  <Card
+                    className="custom-card"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setSelect(true);
+                      console.log("helllooooo");
+                    }}
+                  >
                     <img
                       src={country.flags.png}
                       alt={`${country.name} flag`}

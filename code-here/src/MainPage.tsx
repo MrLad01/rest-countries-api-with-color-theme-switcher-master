@@ -1,14 +1,21 @@
 import React, { useState } from "react";
 import NavBar from "./NavBar";
 import AllCountries from "./AllCountries";
+import CountryPage from "./CountryPage";
 
 const MainPage: React.FC = () => {
   const [light, setLight] = useState<boolean>(false);
+  const [showSelectedCountry, setShowSelectedCountry] =
+    useState<boolean>(false);
 
   return (
     <>
       <NavBar light={light} setLight={setLight} />
-      <AllCountries light={light} />
+      {!showSelectedCountry ? (
+        <AllCountries light={light} setSelect={setShowSelectedCountry} />
+      ) : (
+        <CountryPage />
+      )}
     </>
   );
 };

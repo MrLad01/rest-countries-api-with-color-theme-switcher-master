@@ -19,10 +19,13 @@
 .all-countries-container {
   background-color: var(--bg-color);
   color: var(--text-color);
+  padding-bottom: 100px;
 }
 .each-country-container {
   background-color: var(--bg-color);
   color: var(--text-color);
+  width: 100%;
+  height: 92vh;
 }
 .filter-dropdown {
   background-color: var(--bg-color);
@@ -79,4 +82,33 @@
 .custom-card:hover {
   scale: 1.05;
   transition: 0.5s;
+}
+.country-description {
+  display: flex;
+}
+.each-country-flags {
+  width: 350px;
+  height: 250px;
+  object-fit: contain;
+}
+.country-borders {
+  display: flex;
+}
+.borders {
+  display: flex;
+}
+.border {
+  background-color: transparent;
+  width: fit-content;
+  padding: 2px 26px !important;
+}
+
+@media (max-width: 580px) {
+  .country-description {
+    display: block;
+  }
+  .country-borders {
+    display: flex;
+    flex-direction: column;
+  }
 }

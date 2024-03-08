@@ -34,11 +34,23 @@ export function searchFunction(
   );
 }
 
+export function filterFunction(data: any[], key: string, query: string): any[] {
+  return data.filter((item) => {
+    const value = item[key];
+    if (value && typeof value === "string") {
+      return value.toLowerCase().includes(query);
+    }
+    return false;
+  });
+}
+
 const AllCountries: React.FC<props> = ({ light, setSelect, setCountry }) => {
   const [allCountries, setAllCountries] = useState<any[]>([]);
   const [searchActive, setSearchActive] = useState<boolean>(false);
+  const [filterActive, setFilterActive] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
+  const [filterKey, setFilterKey] = useState<string>("");
   const keys = ["name", "region", "capital"];
   const numberWithCommas = (number: number) => {
     return number.toLocaleString();
@@ -52,6 +64,7 @@ const AllCountries: React.FC<props> = ({ light, setSelect, setCountry }) => {
   };
 
   const searched = searchFunction(data, keys, query);
+  const filtered = filterFunction(data, "region", filterKey);
 
   const renderCards = (countries: any[]) => {
     return countries.map((country) => (
@@ -158,11 +171,47 @@ const AllCountries: React.FC<props> = ({ light, setSelect, setCountry }) => {
                 Filter by region
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Africa</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">America</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Asia</Dropdown.Item>
-                <Dropdown.Item href="#/action-4">Europe</Dropdown.Item>
-                <Dropdown.Item href="#/action-5">Oceania</Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setFilterActive(true);
+                    setFilterKey("africa");
+                  }}
+                >
+                  Africa
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setFilterActive(true);
+                    setFilterKey("america");
+                  }}
+                >
+                  America
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setFilterActive(true);
+                    setFilterKey("asia");
+                  }}
+                >
+                  Asia
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setFilterActive(true);
+                    setFilterKey("europe");
+                    console.log("hello");
+                  }}
+                >
+                  Europe
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setFilterActive(true);
+                    setFilterKey("oceania");
+                  }}
+                >
+                  Oceania
+                </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Container>
@@ -179,7 +228,11 @@ const AllCountries: React.FC<props> = ({ light, setSelect, setCountry }) => {
           {searchActive
             ? searched.length === 0
               ? renderCards(allCountries)
-              : renderCards(searched)
+              : renderCards(allCountries)
+            : renderCards(searched)
+            ? filterActive
+              ? renderCards(filtered)
+              : renderCards(allCountries)
             : renderCards(allCountries)}
         </Row>
       </Container>

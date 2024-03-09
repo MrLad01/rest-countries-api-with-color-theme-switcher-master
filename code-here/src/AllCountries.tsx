@@ -6,42 +6,16 @@ import {
   Form,
   FormControl,
   Row,
-  Col,
-  Card,
   Alert,
 } from "react-bootstrap";
 import data from "../../data.json";
+import { searchFunction, filterFunction, toCamelCase } from "./helpers";
+import RenderCards from "./Card";
 
 interface props {
   light: boolean;
   setSelect: React.Dispatch<SetStateAction<boolean>>;
   setCountry: React.Dispatch<SetStateAction<string>>;
-}
-
-export function searchFunction(
-  data: any[],
-  keys: string[],
-  query: string
-): any[] {
-  return data.filter((item) =>
-    keys.some((key) => {
-      const value = item[key];
-      if (value && typeof value === "string") {
-        return value.toLowerCase().includes(query);
-      }
-      return false;
-    })
-  );
-}
-
-export function filterFunction(data: any[], key: string, query: string): any[] {
-  return data.filter((item) => {
-    const value = item[key];
-    if (value && typeof value === "string") {
-      return value.toLowerCase().includes(query);
-    }
-    return false;
-  });
 }
 
 const AllCountries: React.FC<props> = ({ light, setSelect, setCountry }) => {
@@ -52,83 +26,18 @@ const AllCountries: React.FC<props> = ({ light, setSelect, setCountry }) => {
   const [query, setQuery] = useState<string>("");
   const [filterKey, setFilterKey] = useState<string>("");
   const keys = ["name", "region", "capital"];
-  const numberWithCommas = (number: number) => {
-    return number.toLocaleString();
-  };
+  const continents = ["africa", "america", "asia", "europe", "oceania"];
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const trimmedQuery = String(e.target.value).trim();
     setSearchActive(trimmedQuery !== "");
     setQuery(trimmedQuery);
+    setFilterActive(false);
   };
 
   const searched = searchFunction(data, keys, query);
   const filtered = filterFunction(data, "region", filterKey);
-
-  const renderCards = (countries: any[]) => {
-    return countries.map((country) => (
-      <Col
-        xs={12}
-        sm={6}
-        md={6}
-        lg={4}
-        xl={3}
-        key={country.name}
-        className="card-col"
-      >
-        <Card
-          className="custom-card"
-          onClick={(e) => {
-            e.preventDefault();
-            setSelect(true);
-            setCountry(`${country.name}`);
-          }}
-        >
-          <img
-            src={country.flags.png}
-            alt={`${country.name} flag`}
-            className="country-flags"
-          />
-          <Container className="card-description">
-            <h5
-              className={` ${
-                light ? "light-theme" : "dark-theme"
-              } filter-dropdown`}
-            >
-              {country.name}
-            </h5>
-            <div>
-              <h6
-                className={` ${
-                  light ? "light-theme" : "dark-theme"
-                } filter-dropdown`}
-              >
-                {" "}
-                <span>Population:</span> {numberWithCommas(country.population)}{" "}
-              </h6>
-              <h6
-                className={` ${
-                  light ? "light-theme" : "dark-theme"
-                } filter-dropdown`}
-              >
-                {" "}
-                <span>Region:</span> {country.region}
-              </h6>
-              <h6
-                className={` ${
-                  light ? "light-theme" : "dark-theme"
-                } filter-dropdown`}
-              >
-                {" "}
-                <span>Capital:</span> {country.capital}
-              </h6>
-            </div>
-          </Container>
-        </Card>
-      </Col>
-    ));
-  };
 
   useEffect(() => {
     setAllCountries(data);
@@ -150,7 +59,7 @@ const AllCountries: React.FC<props> = ({ light, setSelect, setCountry }) => {
     >
       <Container>
         <Row>
-          <Container className="d-flex justify-content-between all-search-filter">
+          <Container className="all-search-filter">
             <Form className="d-flex">
               <div className=" search-form">
                 <FormControl
@@ -185,50 +94,19 @@ const AllCountries: React.FC<props> = ({ light, setSelect, setCountry }) => {
                   light ? "light-theme" : "dark-theme"
                 } filter-dropdown`}
               >
-                Filter by region
+                {filterActive ? toCamelCase(filterKey) : "Filter by region"}
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item
-                  onClick={() => {
-                    setFilterActive(true);
-                    setFilterKey("africa");
-                  }}
-                >
-                  Africa
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => {
-                    setFilterActive(true);
-                    setFilterKey("america");
-                  }}
-                >
-                  America
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => {
-                    setFilterActive(true);
-                    setFilterKey("asia");
-                  }}
-                >
-                  Asia
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => {
-                    setFilterActive(true);
-                    setFilterKey("europe");
-                    console.log("hello");
-                  }}
-                >
-                  Europe
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => {
-                    setFilterActive(true);
-                    setFilterKey("oceania");
-                  }}
-                >
-                  Oceania
-                </Dropdown.Item>
+                {continents.map((continent) => (
+                  <Dropdown.Item
+                    onClick={() => {
+                      setFilterActive(true);
+                      setFilterKey(`${continent}`);
+                    }}
+                  >
+                    {toCamelCase(continent)}
+                  </Dropdown.Item>
+                ))}
               </Dropdown.Menu>
             </Dropdown>
           </Container>
@@ -242,15 +120,51 @@ const AllCountries: React.FC<props> = ({ light, setSelect, setCountry }) => {
           </Alert>
         )}
         <Row g={6} className="card-row">
-          {searchActive
-            ? searched.length === 0
-              ? renderCards(allCountries)
-              : renderCards(allCountries)
-            : renderCards(searched)
-            ? filterActive
-              ? renderCards(filtered)
-              : renderCards(allCountries)
-            : renderCards(allCountries)}
+          {searchActive ? (
+            searched.length === 0 ? (
+              <RenderCards
+                setSelect={setSelect}
+                setCountry={setCountry}
+                light={light}
+                countries={allCountries}
+              />
+            ) : (
+              <RenderCards
+                setSelect={setSelect}
+                setCountry={setCountry}
+                light={light}
+                countries={searched}
+              />
+            )
+          ) : <RenderCards
+              setSelect={setSelect}
+              setCountry={setCountry}
+              light={light}
+              countries={allCountries}
+            /> ? (
+            filterActive ? (
+              <RenderCards
+                setSelect={setSelect}
+                setCountry={setCountry}
+                light={light}
+                countries={filtered}
+              />
+            ) : (
+              <RenderCards
+                setSelect={setSelect}
+                setCountry={setCountry}
+                light={light}
+                countries={allCountries}
+              />
+            )
+          ) : (
+            <RenderCards
+              setSelect={setSelect}
+              setCountry={setCountry}
+              light={light}
+              countries={allCountries}
+            />
+          )}
         </Row>
       </Container>
     </div>

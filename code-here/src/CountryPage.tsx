@@ -1,6 +1,7 @@
 import React, { SetStateAction } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import data from "../../data.json";
+import { numberWithCommas } from "./helpers";
 
 interface props {
   light: boolean;
@@ -10,11 +11,6 @@ interface props {
 
 const CountryPage: React.FC<props> = ({ light, setSelect, country }) => {
   const selectedCountry: any = data.find((nation) => nation.name === country);
-  console.log(selectedCountry);
-
-  const numberWithCommas = (number: number) => {
-    return number.toLocaleString();
-  };
 
   return (
     <>
@@ -28,7 +24,9 @@ const CountryPage: React.FC<props> = ({ light, setSelect, country }) => {
       >
         <Container>
           <Button
-            className="back-button"
+            className={` ${
+              light ? "light-theme" : "dark-theme"
+            } filter-dropdown back-button`}
             onClick={(e) => {
               e.preventDefault();
               setSelect(false);
@@ -63,25 +61,31 @@ const CountryPage: React.FC<props> = ({ light, setSelect, country }) => {
                     />
                   </Container>
                 </div>
-                <Row className="country-description">
+                <Row
+                  className={` ${
+                    light ? "light-theme" : "dark-theme"
+                  } country-description `}
+                >
                   <Container>
                     <h4
                       className={` ${
                         light ? "light-theme" : "dark-theme"
-                      } filter-dropdown`}
+                      } country-header `}
                     >
                       {" "}
                       {selectedCountry.name}{" "}
                     </h4>
-                    <div className="country-description">
-                      <Col
-                      // xs={12} sm={6} md={8} lg={6} xl={6}
-                      >
+                    <div
+                      className={` ${
+                        light ? "light-theme" : "dark-theme"
+                      } country-descriptions`}
+                    >
+                      <Col>
                         <div>
                           <h6
                             className={` ${
                               light ? "light-theme" : "dark-theme"
-                            } filter-dropdown`}
+                            } `}
                           >
                             {" "}
                             <span>Native Name:</span>{" "}
@@ -90,7 +94,7 @@ const CountryPage: React.FC<props> = ({ light, setSelect, country }) => {
                           <h6
                             className={` ${
                               light ? "light-theme" : "dark-theme"
-                            } filter-dropdown`}
+                            } `}
                           >
                             {" "}
                             <span>Population:</span>{" "}
@@ -99,7 +103,7 @@ const CountryPage: React.FC<props> = ({ light, setSelect, country }) => {
                           <h6
                             className={` ${
                               light ? "light-theme" : "dark-theme"
-                            } filter-dropdown`}
+                            } `}
                           >
                             {" "}
                             <span>Region:</span> {selectedCountry.region}
@@ -107,7 +111,7 @@ const CountryPage: React.FC<props> = ({ light, setSelect, country }) => {
                           <h6
                             className={` ${
                               light ? "light-theme" : "dark-theme"
-                            } filter-dropdown`}
+                            } `}
                           >
                             {" "}
                             <span>Sub Region:</span> {selectedCountry.subregion}
@@ -115,20 +119,18 @@ const CountryPage: React.FC<props> = ({ light, setSelect, country }) => {
                           <h6
                             className={` ${
                               light ? "light-theme" : "dark-theme"
-                            } filter-dropdown`}
+                            } `}
                           >
                             {" "}
                             <span>Capital:</span> {selectedCountry.capital}
                           </h6>
                         </div>
                       </Col>
-                      <Col
-                      //  xs={12} sm={6} md={8} lg={8} xl={7}
-                      >
+                      <Col>
                         <h6
                           className={` ${
                             light ? "light-theme" : "dark-theme"
-                          } filter-dropdown`}
+                          } `}
                         >
                           {" "}
                           <span>Top Level Domain:</span>{" "}
@@ -137,7 +139,7 @@ const CountryPage: React.FC<props> = ({ light, setSelect, country }) => {
                         <h6
                           className={` ${
                             light ? "light-theme" : "dark-theme"
-                          } filter-dropdown`}
+                          } `}
                         >
                           {" "}
                           <span>Currencies:</span>{" "}
@@ -148,7 +150,7 @@ const CountryPage: React.FC<props> = ({ light, setSelect, country }) => {
                         <h6
                           className={` ${
                             light ? "light-theme" : "dark-theme"
-                          } filter-dropdown`}
+                          } `}
                         >
                           {" "}
                           <span>Languages:</span>{" "}
@@ -166,7 +168,11 @@ const CountryPage: React.FC<props> = ({ light, setSelect, country }) => {
                     <div className="borders">
                       {selectedCountry.borders?.length > 0 &&
                         selectedCountry.borders.map((border: string) => (
-                          <div className="border">
+                          <div
+                            className={` ${
+                              light ? "light-theme" : "dark-theme-1"
+                            } border `}
+                          >
                             <span>{border}</span>
                           </div>
                         ))}

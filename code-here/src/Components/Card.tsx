@@ -2,10 +2,11 @@ import { Card, Col, Container } from "react-bootstrap";
 import { numberWithCommas } from "../Helpers/helpers";
 import React, { SetStateAction } from "react";
 
+// for the props of the page
 interface props {
-  setSelect: React.Dispatch<SetStateAction<boolean>>;
-  setCountry: React.Dispatch<SetStateAction<string>>;
-  light: boolean;
+  light: boolean; // for the light and dark mode
+  setCountry: React.Dispatch<SetStateAction<string>>; // for storing the name of the selected country
+  setSelect: React.Dispatch<SetStateAction<boolean>>; // for checking if a country is selected
 }
 
 const RenderCards: React.FC<props & { countries: any[] }> = ({
@@ -22,21 +23,21 @@ const RenderCards: React.FC<props & { countries: any[] }> = ({
         md={6}
         lg={4}
         xl={3}
-        key={country.name}
         className="card-col"
+        key={country.name}
       >
         <Card
           className="custom-card"
           onClick={(e) => {
             e.preventDefault();
-            setSelect(true);
             setCountry(`${country.name}`);
+            setSelect(true);
           }}
         >
           <img
-            src={country.flags.png}
             alt={`${country.name} flag`}
             className="country-flags"
+            src={country.flags.png}
           />
           <Container className="card-description">
             <h5 className={` ${light ? "light-theme" : "dark-theme"}`}>

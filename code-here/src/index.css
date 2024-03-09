@@ -1,26 +1,28 @@
 /* Light theme */
 .light-theme {
-  --bg-color: #fff; /* Customize background color for light theme */
-  --text-color: #1f1e1e; /* Customize text color for light theme */
+  --bg-color: #fff;
+  --text-color: #1f1e1e;
 }
 /* Dark theme */
 .dark-theme-1 {
-  --bg-color: #1f3041; /* Customize background color for dark theme */
-  --text-color: #bbc5d3; /* Customize text color for dark theme */
+  --bg-color: #1f3041;
+  --text-color: #bbc5d3;
 }
 
 /* Dark theme */
 .dark-theme {
-  --bg-color: #1a2633; /* Customize background color for dark theme */
-  --text-color: #c8d7dd; /* Customize text color for dark theme */
+  --bg-color: #1a2633;
+  --text-color: #c8d7dd;
 }
 
 /* Apply theme to elements */
+/* for the page that contains all the countries */
 .all-countries-container {
   background-color: var(--bg-color);
   color: var(--text-color);
   padding-bottom: 100px;
 }
+/* for the page that is specifically for each country */
 .each-country-container {
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -28,12 +30,14 @@
   padding-top: 40px;
   width: 100%;
 }
+/* the filter dropdown button */
 .all-search-filter {
   display: flex;
   justify-content: space-between;
   padding-top: 28px;
   padding-bottom: 28px;
 }
+/* the back button for each country's page */
 .back-button {
   align-items: center;
   display: flex;
@@ -42,11 +46,13 @@
   margin-bottom: 40px;
   width: 100px;
 }
+/* the icons for the back button and the search input */
 .back-button svg,
 .search-icon {
   height: 20px;
   width: 20px;
 }
+/* for the border countries part in the description for each country */
 .border {
   background-color: transparent;
   background-color: var(--bg-color);
@@ -64,13 +70,16 @@
   max-width: 30vw;
   row-gap: 10px;
 }
+/* for the brand of the site in the Navigation Bar */
 .brand {
   color: var(--text-color);
   text-decoration: none;
 }
+/* for the colummn aspect of the card */
 .card-col {
   margin-bottom: 60px;
 }
+/* the description of the cards in the page of all the countries */
 .card-description {
   padding-bottom: 30px;
   padding-left: 20px;
@@ -91,6 +100,7 @@
   color: var(--text-color);
   font-weight: 400;
 }
+/* for the descriptions in each country's page */
 .country-borders,
 .country-description,
 .country-descriptions {
@@ -120,6 +130,7 @@
 .country-header {
   margin-bottom: 30px;
 }
+/* more on the cards in the all countries page */
 .custom-card {
   background-color: var(--bg-color);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -138,6 +149,7 @@
   object-fit: cover;
   width: 380px;
 }
+/* more on the filter dropdown */
 .filter-dropdown {
   background-color: var(--bg-color);
   border: 1px solid var(--text-color);
@@ -149,11 +161,13 @@
   background-color: transparent !important;
   color: var(--text-color) !important;
 }
+/* the navbar */
 .navbar {
   background-color: var(--bg-color);
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   color: var(--text-color);
 }
+/* the search input */
 .search {
   padding-right: 10px;
   padding-left: 40px;
@@ -191,7 +205,7 @@
   position: relative;
   width: fit-content;
 }
-
+/* for smaller screens */
 @media (max-width: 580px) {
   .all-search-filter,
   .country-description {

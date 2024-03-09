@@ -1,16 +1,17 @@
-import React, { SetStateAction } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import data from "../../../data.json";
 import { numberWithCommas } from "../Helpers/helpers";
+import React, { SetStateAction } from "react";
 
+// the props of the page
 interface props {
-  light: boolean;
+  country: string; // the name of the selected country
+  light: boolean; // for the light and dark mode
   setSelect: React.Dispatch<SetStateAction<boolean>>;
-  country: string;
 }
 
 const CountryPage: React.FC<props> = ({ light, setSelect, country }) => {
-  const selectedCountry: any = data.find((nation) => nation.name === country);
+  const selectedCountry: any = data.find((nation) => nation.name === country); // for getting the data of the selected country
 
   return (
     <>
@@ -34,17 +35,17 @@ const CountryPage: React.FC<props> = ({ light, setSelect, country }) => {
           >
             {" "}
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
               className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
+                d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
               />
             </svg>
             <span>Back </span>
@@ -55,9 +56,9 @@ const CountryPage: React.FC<props> = ({ light, setSelect, country }) => {
                 <div className=" float-md-start float-lg-start float-xl-start">
                   <Container>
                     <img
-                      src={selectedCountry.flags.png}
                       alt={`${selectedCountry.name} flag`}
                       className="each-country-flags"
+                      src={selectedCountry.flags.png}
                     />
                   </Container>
                 </div>

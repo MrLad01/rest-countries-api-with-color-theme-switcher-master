@@ -152,14 +152,31 @@ const AllCountries: React.FC<props> = ({ light, setSelect, setCountry }) => {
         <Row>
           <Container className="d-flex justify-content-between all-search-filter">
             <Form className="d-flex">
-              <FormControl
-                type="search"
-                placeholder="Search for countries..."
-                className="me-2"
-                aria-label="Search"
-                onChange={handleChange}
-              />
-              <Button variant="outline-success">Search</Button>
+              <div className=" search-form">
+                <FormControl
+                  type="search"
+                  placeholder="Search for countries..."
+                  className="search"
+                  aria-label="Search"
+                  onChange={handleChange}
+                />
+                <Button className="search-button">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-6 h-6 search-icon"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                    />
+                  </svg>
+                </Button>
+              </div>
             </Form>
             <Dropdown>
               <Dropdown.Toggle

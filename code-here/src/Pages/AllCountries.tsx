@@ -34,7 +34,7 @@ const AllCountries: React.FC<props> = ({ light, setSelect, setCountry }) => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    const trimmedQuery = String(e.target.value).trim();
+    const trimmedQuery = String(e.target.value).toLowerCase().trim();
     setSearchActive(trimmedQuery !== "");
     setQuery(trimmedQuery);
     setFilterActive(false);

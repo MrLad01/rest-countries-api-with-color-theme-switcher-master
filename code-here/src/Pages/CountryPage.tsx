@@ -1,7 +1,7 @@
 import React, { SetStateAction } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import data from "../../data.json";
-import { numberWithCommas } from "./helpers";
+import data from "../../../data.json";
+import { numberWithCommas } from "../Helpers/helpers";
 
 interface props {
   light: boolean;

@@ -8,9 +8,13 @@ import {
   Row,
   Alert,
 } from "react-bootstrap";
-import data from "../../data.json";
-import { searchFunction, filterFunction, toCamelCase } from "./helpers";
-import RenderCards from "./Card";
+import data from "../../../data.json";
+import {
+  searchFunction,
+  filterFunction,
+  toCamelCase,
+} from "../Helpers/helpers";
+import RenderCards from "../Components/Card";
 
 interface props {
   light: boolean;

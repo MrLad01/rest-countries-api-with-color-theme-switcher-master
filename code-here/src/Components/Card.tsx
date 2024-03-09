@@ -1,5 +1,5 @@
 import { Card, Col, Container } from "react-bootstrap";
-import { numberWithCommas } from "./helpers";
+import { numberWithCommas } from "../Helpers/helpers";
 import React, { SetStateAction } from "react";
 
 interface props {

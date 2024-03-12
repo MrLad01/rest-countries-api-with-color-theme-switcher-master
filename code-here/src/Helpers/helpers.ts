@@ -9,6 +9,10 @@ export function searchFunction(
         const value = item[key];
         if (value && typeof value === "string") {
           return value.toLowerCase().includes(query);
+        } else if (value && typeof value === "object" && value.length === 1) {
+          return value[0].toLowerCase().includes(query);
+        } else if (value && typeof value === "object" && value.length !== 1 && value.common){
+          return value?.common.toLowerCase().includes(query);
         }
         return false;
       })

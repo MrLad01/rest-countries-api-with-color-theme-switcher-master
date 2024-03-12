@@ -7,7 +7,7 @@ import {
   FormControl,
   Row,
 } from "react-bootstrap";
-import data from "../../../data.json";
+// import data from "../../../data.json";
 import {
   filterFunction,
   searchFunction,
@@ -18,17 +18,23 @@ import RenderCards from "../Components/Card";
 
 // the props of the page
 interface props {
+  data: any[];
   light: boolean; // for the light and dark mode
   setCountry: React.Dispatch<SetStateAction<string>>; // for storing the name of the selected country
   setSelect: React.Dispatch<SetStateAction<boolean>>; // for checking if a card is selected or not
 }
 
-const AllCountries: React.FC<props> = ({ light, setSelect, setCountry }) => {
+const AllCountries: React.FC<props> = ({
+  data,
+  light,
+  setSelect,
+  setCountry,
+}) => {
   const [allCountries, setAllCountries] = useState<any[]>([]); // an array for all the countries
   const continents = ["africa", "america", "asia", "europe", "oceania"];
   const [filterActive, setFilterActive] = useState<boolean>(false); // to inspect if the filter dropdown is interacted with
   const [filterKey, setFilterKey] = useState<string>(""); // for the selected option in the filter dropdown
-  const keys = ["name", "region", "capital"]; // the keys for the search function
+  const keys: any = ["name", "region", "capital"]; // the keys for the search function
   const [searchActive, setSearchActive] = useState<boolean>(false); // to inspect if the search input is interacted with
   const [show, setShow] = useState<boolean>(false); // for displaying an error message if there is an incorrect query
   const [query, setQuery] = useState<string>(""); // for the value in the search input
@@ -45,9 +51,15 @@ const AllCountries: React.FC<props> = ({ light, setSelect, setCountry }) => {
   const searched = searchFunction(data, keys, query);
   const filtered = filterFunction(data, "region", filterKey);
 
+  // useEffect(() => {
+  // setAllCountries(data);
+  // }, [data]);
+
   useEffect(() => {
-    setAllCountries(data); // for storing the data of all the countries
-  }, []);
+    if (data.length !== 0) {
+      setAllCountries(data);
+    }
+  }, [data]);
 
   useEffect(() => {
     if (searchActive && searched.length === 0) {
@@ -107,6 +119,7 @@ const AllCountries: React.FC<props> = ({ light, setSelect, setCountry }) => {
               <Dropdown.Menu>
                 {continents.map((continent) => (
                   <Dropdown.Item
+                    key={continent}
                     onClick={() => {
                       setFilterActive(true);
                       setFilterKey(`${continent}`);
@@ -124,7 +137,7 @@ const AllCountries: React.FC<props> = ({ light, setSelect, setCountry }) => {
           <Alert variant="danger" onClose={() => setShow(false)} dismissible>
             <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
             <p>
-              {`What are you typing because there is actually no country matching "${query}". Please try a different search.`}
+              {`What are you typing because there is actually no country or capital matching "${query}". Please try a different search.`}
             </p>
           </Alert>
         )}
@@ -146,27 +159,13 @@ const AllCountries: React.FC<props> = ({ light, setSelect, setCountry }) => {
                 setSelect={setSelect}
               />
             )
-          ) : <RenderCards
-              countries={allCountries}
+          ) : filterActive ? (
+            <RenderCards
+              countries={filtered}
               light={light}
               setCountry={setCountry}
               setSelect={setSelect}
-            /> ? (
-            filterActive ? (
-              <RenderCards
-                countries={filtered}
-                light={light}
-                setCountry={setCountry}
-                setSelect={setSelect}
-              />
-            ) : (
-              <RenderCards
-                countries={allCountries}
-                light={light}
-                setCountry={setCountry}
-                setSelect={setSelect}
-              />
-            )
+            />
           ) : (
             <RenderCards
               countries={allCountries}

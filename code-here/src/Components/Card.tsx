@@ -15,53 +15,56 @@ const RenderCards: React.FC<props & { countries: any[] }> = ({
   light,
   countries,
 }) => {
-  return countries.map((country) => {
-    return (
-      <Col
-        xs={12}
-        sm={6}
-        md={6}
-        lg={4}
-        xl={3}
-        className="card-col"
-        key={country.name}
-      >
-        <Card
-          className="custom-card"
-          onClick={(e) => {
-            e.preventDefault();
-            setCountry(`${country.name}`);
-            setSelect(true);
-          }}
+  return countries
+    .sort((a, b) => a.name.common.localeCompare(b.name.common))
+    .map((country, index) => {
+      return (
+        <Col
+          xs={12}
+          sm={6}
+          md={6}
+          lg={4}
+          xl={3}
+          className="card-col"
+          key={index}
         >
-          <img
-            alt={`${country.name} flag`}
-            className="country-flags"
-            src={country.flags.png}
-          />
-          <Container className="card-description">
-            <h5 className={` ${light ? "light-theme" : "dark-theme"}`}>
-              {country.name}
-            </h5>
-            <div>
-              <h6 className={` ${light ? "light-theme" : "dark-theme"} `}>
-                {" "}
-                <span>Population:</span> {numberWithCommas(country.population)}{" "}
-              </h6>
-              <h6 className={` ${light ? "light-theme" : "dark-theme"} `}>
-                {" "}
-                <span>Region:</span> {country.region}
-              </h6>
-              <h6 className={` ${light ? "light-theme" : "dark-theme"} `}>
-                {" "}
-                <span>Capital:</span> {country.capital}
-              </h6>
-            </div>
-          </Container>
-        </Card>
-      </Col>
-    );
-  });
+          <Card
+            className="custom-card"
+            onClick={(e) => {
+              e.preventDefault();
+              setCountry(`${country.name.official}`);
+              setSelect(true);
+            }}
+          >
+            <img
+              alt={`${country.name.official} flag`}
+              className="country-flags"
+              src={country.flags.png}
+            />
+            <Container className="card-description">
+              <h5 className={` ${light ? "light-theme" : "dark-theme"}`}>
+                {country.name.common}
+              </h5>
+              <div>
+                <h6 className={` ${light ? "light-theme" : "dark-theme"} `}>
+                  {" "}
+                  <span>Population:</span>{" "}
+                  {numberWithCommas(country.population)}{" "}
+                </h6>
+                <h6 className={` ${light ? "light-theme" : "dark-theme"} `}>
+                  {" "}
+                  <span>Region:</span> {country.region}
+                </h6>
+                <h6 className={` ${light ? "light-theme" : "dark-theme"} `}>
+                  {" "}
+                  <span>Capital:</span> {country.capital}
+                </h6>
+              </div>
+            </Container>
+          </Card>
+        </Col>
+      );
+    });
 };
 
 export default RenderCards;

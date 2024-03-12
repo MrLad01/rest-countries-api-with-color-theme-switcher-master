@@ -1,17 +1,20 @@
 import { Container, Row, Col, Button } from "react-bootstrap";
-import data from "../../../data.json";
+// import data from "../../../data.json";
 import { numberWithCommas } from "../Helpers/helpers";
 import React, { SetStateAction } from "react";
 
 // the props of the page
 interface props {
+  data: any[];
   country: string; // the name of the selected country
   light: boolean; // for the light and dark mode
   setSelect: React.Dispatch<SetStateAction<boolean>>;
 }
 
-const CountryPage: React.FC<props> = ({ light, setSelect, country }) => {
-  const selectedCountry: any = data.find((nation) => nation.name === country); // for getting the data of the selected country
+const CountryPage: React.FC<props> = ({ data, light, setSelect, country }) => {
+  const selectedCountry: any = data.find(
+    (nation) => nation.name.official === country
+  ); // for getting the data of the selected country
 
   return (
     <>
@@ -74,7 +77,7 @@ const CountryPage: React.FC<props> = ({ light, setSelect, country }) => {
                       } country-header `}
                     >
                       {" "}
-                      {selectedCountry.name}{" "}
+                      {selectedCountry.name.common}{" "}
                     </h4>
                     <div
                       className={` ${
@@ -89,8 +92,29 @@ const CountryPage: React.FC<props> = ({ light, setSelect, country }) => {
                             } `}
                           >
                             {" "}
+                            <span>Official Name:</span>{" "}
+                            {selectedCountry.name.official}{" "}
+                          </h6>
+                          <h6
+                            className={` ${
+                              light ? "light-theme" : "dark-theme"
+                            } `}
+                          >
+                            {" "}
                             <span>Native Name:</span>{" "}
-                            {selectedCountry.nativeName}{" "}
+                            {Object.values(selectedCountry.name.nativeName).map(
+                              (language: any) => (
+                                <>
+                                  <span
+                                    style={{
+                                      marginRight: "10px",
+                                    }}
+                                  >
+                                    {language.common}
+                                  </span>
+                                </>
+                              )
+                            )}
                           </h6>
                           <h6
                             className={` ${
@@ -134,8 +158,7 @@ const CountryPage: React.FC<props> = ({ light, setSelect, country }) => {
                           } `}
                         >
                           {" "}
-                          <span>Top Level Domain:</span>{" "}
-                          {selectedCountry.topLevelDomain}
+                          <span>Top Level Domain:</span> {selectedCountry.tld}
                         </h6>
                         <h6
                           className={` ${
@@ -144,8 +167,16 @@ const CountryPage: React.FC<props> = ({ light, setSelect, country }) => {
                         >
                           {" "}
                           <span>Currencies:</span>{" "}
-                          {selectedCountry.currencies?.map(
-                            (curr: any) => curr.name
+                          {Object.values(selectedCountry.currencies).map(
+                            (curr: any) => (
+                              <span
+                                style={{
+                                  marginRight: "10px",
+                                }}
+                              >
+                                {`${curr.name} (${curr.symbol})`}
+                              </span>
+                            )
                           )}
                         </h6>
                         <h6
@@ -155,9 +186,7 @@ const CountryPage: React.FC<props> = ({ light, setSelect, country }) => {
                         >
                           {" "}
                           <span>Languages:</span>{" "}
-                          {selectedCountry.languages.map(
-                            (lang: any) => lang.name
-                          )}
+                          {Object.values(selectedCountry.languages)}
                         </h6>
                       </Col>
                     </div>
